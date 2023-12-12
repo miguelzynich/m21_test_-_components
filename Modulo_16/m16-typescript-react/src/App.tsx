@@ -1,38 +1,47 @@
-// App.tsx
-import React from 'react';
-import Button from './Components/Button/Button';
-import Select from './Components/Select/Select';
+import React, { useEffect, useState } from 'react';
+import './App.css';
+import Header from './Components/Page/header/Header';
+import OffBanner from './Components/Page/offBanner/OffBanner';
+import ProductsPopular from './Components/Page/productsPopular/ProductsPopular';
+import SlickerCategories from './Components/Page/slickerCategories/SlickerCategories';
+import SlickerSlides from './Components/Page/slickerSlides/SlickerSlides';
+import 'tachyons/css/tachyons.min.css';
 
-const App: React.FC = () => {
-  return (
-    <div>
-      <h1 className="ml3">Meu Componentes</h1>
+function App() {
+  const [error, setError] = useState<Error | null>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [items, setItems] = useState<any[]>([]);
 
-      { }
-      <Button align="center" variation="primary">
-      </Button>
-      <Button align="center" variation="secondary">
-      </Button>
-      <Button align="center" variation="tertiary">
-      </Button>
+  useEffect(() => {
+    fetch("http://localhost:3003/products")
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setIsLoaded(true);
+          setItems(result);
+        },
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      );
+  }, []);
 
-      {}
-      <Select
-        direction="row"
-        variation="primary"
-        size="medium" 
-        fSize="large" 
-        id="seuIdAqui" 
-        labelText="Escolha uma opção:"
-      >
-        <option value="opcao1">Opção 1</option>
-        <option value="opcao2">Opção 2</option>
-        <option value="opcao3">Opção 3 </option>
-
-        {}
-      </Select>
-    </div>
-  );
-};
+  if (error !== null) {
+    return <div>Erro: {error.message}</div>;
+  } else if (!isLoaded) {
+    return <div>Carregando...</div>;
+  } else {
+    return (
+      <div className="App">
+        <Header />
+        <SlickerSlides />
+        <OffBanner />
+        <SlickerCategories />
+        <ProductsPopular items={items} />
+      </div>
+    );
+  }
+}
 
 export default App;
