@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Select component matches Snapshot 1`] = `
+<div
+  className="ds-flex direction-action-row align-action-center justify-action-center"
+>
+  <label
+    className="f4 color-action-primary fSize-action-medium db mb2 mt3 mh3"
+    htmlFor="mySelect"
+  >
+    Select an option
+  </label>
+  <select
+    className="ba color-action-primary size-action-large fSize-action-medium f5 fl w-20 mh3"
+    data-testid="mySelect"
+    id="mySelect"
+  >
+    <option
+      value=""
+    />
+    <option
+      value="option1"
+    >
+      Option 1
+    </option>
+    <option
+      value="option2"
+    >
+      Option 2
+    </option>
+  </select>
+</div>
+`;
